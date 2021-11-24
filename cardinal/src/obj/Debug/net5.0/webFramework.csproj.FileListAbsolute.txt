@@ -1,4 +1,0 @@
-C:\Users\kreeher\Repos\cardinal-check\cardinal\src\obj\Debug\net5.0\webFramework.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\kreeher\Repos\cardinal-check\cardinal\src\obj\Debug\net5.0\webFramework.AssemblyInfoInputs.cache
-C:\Users\kreeher\Repos\cardinal-check\cardinal\src\obj\Debug\net5.0\webFramework.AssemblyInfo.cs
-C:\Users\kreeher\Repos\cardinal-check\cardinal\src\obj\Debug\net5.0\webFramework.csproj.CoreCompileInputs.cache
