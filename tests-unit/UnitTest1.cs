@@ -1,8 +1,9 @@
 using NUnit.Framework;
+using framework_web;
 
 namespace tests_unit
 {
-    public class Tests
+    public class Tests : WebTestBase
     {
         [SetUp]
         public void Setup()

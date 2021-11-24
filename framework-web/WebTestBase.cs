@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace framework_web
 {
-    class WebTestBase
+    public class WebTestBase
     {
             private static readonly ThreadLocal<bool> ArePluginsSubscribed = new();
 
