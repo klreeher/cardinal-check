@@ -1,11 +1,18 @@
 ﻿using framework_core;
+using framework_web.Configuration;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
+using WebDriverManager.Helpers;
 
 namespace framework_web.Services
 {
@@ -138,4 +145,4 @@ namespace framework_web.Services
         }
     }
 }
-}
+

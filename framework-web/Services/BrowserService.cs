@@ -32,4 +32,4 @@ namespace framework_web.Services
         public static void Refresh() => DriverService.WrappedDriver.Value.Navigate().Refresh();
     }
 }
-}
+
