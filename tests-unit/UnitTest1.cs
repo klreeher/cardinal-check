@@ -37,7 +37,8 @@ namespace tests_unit
             var timeSetting = this.Config.Root.GetSection("timeoutSettings").GetChildren().GetEnumerator();
             while (timeSetting.MoveNext())
             {
-                Logger.Info(timeSetting.Current.Key);
+                Logger.Info($"{timeSetting.Current.Key}: {timeSetting.Current.Value}");
+
             }
 
         }
