@@ -32,7 +32,11 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    testAssemblyVer2: "**\\*tests-unit.dll"
+    testAssemblyVer2: |
+      **\\tests-unit.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+      !**\bin\**\ref\**
 # Publish Test Results
 # Publish test results to Azure Pipelines
 - task: PublishTestResults@2
