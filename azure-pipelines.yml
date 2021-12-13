@@ -39,8 +39,12 @@ steps:
       !**\obj\**
       !**\bin\**\ref\**
 # Publish Test Results
+- script: |
+    dotnet test tests-unit.dll /Logger:trx
+  displayName: "dotnet test"
 # Publish test results to Azure Pipelines
 - task: PublishTestResults@2
+  condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: '**/*.trx' 
