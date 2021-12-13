@@ -40,7 +40,7 @@ steps:
       !**\bin\**\ref\**
     #testFiltercriteria: # Optional
     runInParallel: true # Optional
-    #otherConsoleOptions: # Optional
+    otherConsoleOptions: '--logger:nunit;LogFileName={assembly}.results.xml' # Optional
     publishRunAttachments: true # Optional
     failOnMinTestsNotRun: true # Optional
     minimumExpectedTests: '1' # Optional
