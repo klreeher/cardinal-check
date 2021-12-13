@@ -37,6 +37,6 @@ steps:
   condition: succeededOrFailed() # because otherwise we won't know what tests failed
   inputs: 
     testResultsFormat: 'NUnit'
-    testResultsFiles: "$(Agent.TempDirectory)\TestResults\*.xml"
+    testResultsFiles: $(Agent.TempDirectory)\TestResults\*.xml
     #searchFolder: '$(Agent.TempDirectory)\TestResults'
     failTaskOnFailedTests: true
