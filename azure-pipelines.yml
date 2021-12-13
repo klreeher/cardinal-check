@@ -16,7 +16,7 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
-– task: Bash@3
+- task: Bash@3
   inputs:
     targetType: 'inline'
     script: 'env | sort'
@@ -24,7 +24,7 @@ steps:
     set SecretKey="Secret key from environment"
     set TransientFaultHandlingOptions__Enabled="true"
     set TransientFaultHandlingOptions__AutoRetryDelay="00:00:13"
-– task: Bash@3
+- task: Bash@3
   inputs:
     targetType: 'inline'
     script: 'env | sort'
