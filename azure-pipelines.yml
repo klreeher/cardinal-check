@@ -36,7 +36,6 @@ steps:
   displayName: 'Publish Unit Test Results'
   condition: succeededOrFailed() # because otherwise we won't know what tests failed
   inputs: 
-    testResultsFormat: 'NUnit3'
+    testResultsFormat: 'NUnit'
     testResultsFiles: '**/*.results.xml'
-    #searchFolder: '$(Agent.TempDirectory)\TestResults\'
     failTaskOnFailedTests: true
