@@ -58,7 +58,7 @@ steps:
 
 
 - script: |
-    dotnet test $(Agent.TempDirectory)/tests-unit/tests-unit.dll --logger:nunit -- NUnit.ShowInternalProperties=true 
+    dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:nunit -- NUnit.ShowInternalProperties=true 
 
 - task: PublishTestResults@2
   displayName: 'Publish Unit Test Results'
