@@ -65,6 +65,6 @@ steps:
   condition: succeededOrFailed() # because otherwise we won't know what tests failed
   inputs: 
     testResultsFormat: 'NUnit'
-    testResultsFiles: '**\*-test-result.xml'
+    testResultsFiles: '**\TestResults.xml'
     searchFolder: '$(Agent.TempDirectory)'
     failTaskOnFailedTests: true
