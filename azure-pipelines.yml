@@ -40,15 +40,15 @@ steps:
       !**\bin\**\ref\**
 # Publish Test Results
 - script: |
-    dotnet test **/tests-unit.dll /Logger:trx
+    dotnet test **\\tests-unit.dll /ResultsDirectory:$(Agent.TempDirectory)/TestResults /Logger:trx
   displayName: "dotnet test"
 # Publish test results to Azure Pipelines
 - task: PublishTestResults@2
   condition: succeededOrFailed()
   inputs:
     testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-    testResultsFiles: '**/*.trx' 
-    #searchFolder: '$(Agent.TempDirectory)/TestResults' # Optional
+    #testResultsFiles: '**/*.trx' 
+    searchFolder: '$(Agent.TempDirectory)/TestResults' # Optional
     #mergeTestResults: false # Optional
     failTaskOnFailedTests: true # Optional
     #testRunTitle: # Optional
