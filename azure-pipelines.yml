@@ -29,7 +29,7 @@ steps:
   displayName: "dotnet build"
 
 - script: |
-    dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile"; -- NUnit.ShowInternalProperties=true 
+    dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
   displayName: "dotnet test"
 
 - task: PublishTestResults@2
