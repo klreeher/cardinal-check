@@ -2,6 +2,9 @@ using NUnit.Framework;
 using framework_core;
 using System.IO;
 using framework_core.Logging;
+using Microsoft.Extensions.Configuration.Json;
+using Microsoft.Extensions.Configuration.CommandLine;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace tests_unit
 {
@@ -21,8 +24,34 @@ namespace tests_unit
         [Test]
         public void ListSources()
             {
-            this.Config.listSources();
+            var sourceList = this.Config.listSources();
+
+            int i = 0;
+            while (i <= sourceList.Count - 1)
+            {
+                if (sourceList[i].GetType().Name == "JsonConfigurationSource")
+                {
+                    JsonConfigurationSource test = (JsonConfigurationSource)sourceList[i];
+                    Logger.Info($"{i} type: {test.GetType()} path: {test.Path}");
+                }
+                else if (sourceList[i].GetType().Name == "EnvironmentVariablesConfigurationSource")
+                {
+                    EnvironmentVariablesConfigurationSource env = (EnvironmentVariablesConfigurationSource)sourceList[i];
+                    Logger.Info($"{i} type: {env.GetType()} path: {env}");
+                }
+                else if (sourceList[i].GetType().Name == "CommandLineConfigurationExtensions")
+                {
+                    CommandLineConfigurationSource cmd = (CommandLineConfigurationSource)sourceList[i];
+                    Logger.Info($"{i} type: {cmd.GetType()} path: {cmd.Args}");
+                }
+                else
+                {
+                    Logger.Info($"{i} type: {sourceList[i].GetType().Name}");
+                }
+
+                i++;
             }
+        }
 
         [Test]
         public void WhatIsIt()

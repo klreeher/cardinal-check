@@ -50,26 +50,9 @@ namespace framework_core
         /// <summary>
         /// 
         /// </summary>
-        public void listSources()
+        public IList<IConfigurationSource> listSources()
             {
-            int i = 0;
-            while (i <= this._builder.Sources.Count-1){
-                    if(this._builder.Sources[i].GetType().Name == "JsonConfigurationSource")
-                {
-                    JsonConfigurationSource test = (JsonConfigurationSource)this._builder.Sources[i];
-                    Logger.Info($"{i} type: {test.GetType()} path: {test.Path}");
-                }
-                    else if(this._builder.Sources[i].GetType().Name == "CommandLineConfigurationExtensions"){
-                    CommandLineConfigurationSource cmd = (CommandLineConfigurationSource)this._builder.Sources[i];
-                    Logger.Info($"{i} type: {cmd.GetType()} path: {cmd.Args}");
-                }
-                    else
-                {
-                    Logger.Info($"{i} type: {this._builder.Sources[i].GetType().Name}");
-                }
-
-                i++;
-                }
+            return this._builder.Sources;
             }
 
         /// <summary>
