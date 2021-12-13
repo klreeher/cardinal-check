@@ -32,21 +32,17 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    testAssemblyVer2: "**\\*tests-unit*.dll"
 # Publish Test Results
 # Publish test results to Azure Pipelines
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: '**/TEST-*.xml' 
-    #searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
+    searchFolder: '$(Agent.TempDirectory)' # Optional
     #mergeTestResults: false # Optional
     failTaskOnFailedTests: true # Optional
     #testRunTitle: # Optional
     #buildPlatform: # Optional
     #buildConfiguration: # Optional
-    #publishRunAttachments: true # Optional
+    publishRunAttachments: true # Optional
