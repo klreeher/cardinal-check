@@ -14,6 +14,8 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Debug'
   GLOBAL_ISCI: true
+  TestRunner: "nunit"
+  TestResultFile: "{assembly}.results.xml"
 
 
 steps:
@@ -22,49 +24,19 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-# - task: VSBuild@1
-#   inputs:
-#     solution: '$(solution)'
-#     msbuildArgs: '/p:PackageLocation="$(build.artifactStagingDirectory)"'
-#     platform: '$(buildPlatform)'
-#     configuration: '$(buildConfiguration)'
-#     maximumCpuCount: false
 - script: |
     dotnet build --configuration $(buildConfiguration) --output "$(Agent.TempDirectory)"
-
-
-# - task: VSTest@2
-#   inputs:
-#     platform: '$(buildPlatform)'
-#     configuration: '$(buildConfiguration)'
-#     testAssemblyVer2: |
-#       **\\tests-unit.dll
-#       !**\*TestAdapter.dll
-#       !**\obj\**
-#       !**\bin\**\ref\**
-#     #testFiltercriteria: # Optional
-#     runInParallel: true # Optional
-#     otherConsoleOptions: '--logger:nunit;LogFileName={assembly}.results.xml' # Optional
-#     publishRunAttachments: true # Optional
-#     failOnMinTestsNotRun: true # Optional
-#     minimumExpectedTests: '1' # Optional
-#     #diagnosticsEnabled: false # Optional
-#     collectDumpOn: 'always' # Optional. Options: onAbortOnly, always, never
-#     #rerunFailedTests: False # Optional
-#     #rerunType: 'basedOnTestFailurePercentage' # Optional. Options: basedOnTestFailurePercentage, basedOnTestFailureCount
-#     #rerunFailedThreshold: '30' # Optional
-#     #rerunFailedTestCasesMaxLimit: '5' # Optional
-#     #rerunMaxAttempts: '3' # Optional
-
+  displayName: "dotnet build"
 
 - script: |
-    dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:nunit -- NUnit.ShowInternalProperties=true 
+    dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile"; -- NUnit.ShowInternalProperties=true 
+  displayName: "dotnet test"
 
 - task: PublishTestResults@2
   displayName: 'Publish Unit Test Results'
   condition: succeededOrFailed() # because otherwise we won't know what tests failed
   inputs: 
     testResultsFormat: 'NUnit'
-    testResultsFiles: '**\TestResults.xml'
-    searchFolder: '$(Agent.TempDirectory)'
+    testResultsFiles: '*.xml'
+    searchFolder: '$(Agent.TempDirectory)\TestResults'
     failTaskOnFailedTests: true
