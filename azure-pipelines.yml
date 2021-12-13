@@ -42,7 +42,7 @@ steps:
 # Publish test results to Azure Pipelines
 - task: PublishTestResults@2
   inputs:
-    #testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+    testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: '**/*.trx' 
     #searchFolder: '$(Agent.TempDirectory)/TestResults' # Optional
     #mergeTestResults: false # Optional

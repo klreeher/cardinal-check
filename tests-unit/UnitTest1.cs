@@ -8,23 +8,23 @@ using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace tests_unit
 {
-    public class Tests
+    /// <inheritdoc></inheritdoc>
+    public class UnitTests : BaseTestClass
     {
-        public ConfigurationService Config;
 
-        [OneTimeSetUp]
-        public void SetUp()
-            {
-            string file = "appSettings.json";
-            Logger.Info("Full Path of Config File:"+Path.GetFullPath(file));
-            this.Config = new ConfigurationService();
-            this.Config.addJsonConfig(Path.GetFullPath(file));
-            
-            }
+        [SetUp]
+        public void InitConfig()
+        {
+                string file = "appSettings.json";
+                Logger.Info("Full Path of Config File:" + Path.GetFullPath(file));
+                this.Config = new ConfigurationService();
+                this.Config.addJsonConfig(Path.GetFullPath(file));
+        }
         [Test]
         public void ListSources()
             {
             var sourceList = this.Config.listSources();
+            Assert.IsTrue(sourceList.Count == 2, "expected number of sources is 1.");
 
             int i = 0;
             while (i <= sourceList.Count - 1)
@@ -37,7 +37,7 @@ namespace tests_unit
                 else if (sourceList[i].GetType().Name == "EnvironmentVariablesConfigurationSource")
                 {
                     EnvironmentVariablesConfigurationSource env = (EnvironmentVariablesConfigurationSource)sourceList[i];
-                    Logger.Info($"{i} type: {env.GetType()} path: {env}");
+                    Logger.Info($"{i} type: {env.GetType()}");
                 }
                 else if (sourceList[i].GetType().Name == "CommandLineConfigurationExtensions")
                 {
@@ -63,6 +63,9 @@ namespace tests_unit
                 Logger.Info(allThese.Current.Key);
 
             }
+
+            var timeout = this.Config.Root.GetSection("timeoutSettings").GetChildren();
+            Assert.IsNotEmpty(timeout);
 
             var timeSetting = this.Config.Root.GetSection("timeoutSettings").GetChildren().GetEnumerator();
             while (timeSetting.MoveNext())
