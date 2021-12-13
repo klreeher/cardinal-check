@@ -38,20 +38,16 @@ steps:
       !**\*TestAdapter.dll
       !**\obj\**
       !**\bin\**\ref\**
-# Publish Test Results
-- script: |
-    dotnet test -ResultsDirectory:"$(Agent.TempDirectory)\TestResults" -Logger:"trx" --filter:(FullyQualifiedName~tests-unit.dll)
-  displayName: "dotnet test"
-# Publish test results to Azure Pipelines
-- task: PublishTestResults@2
-  condition: succeededOrFailed()
-  inputs:
-    testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-    #testResultsFiles: '**/*.trx' 
-    searchFolder: '$(Agent.TempDirectory)/TestResults' # Optional
-    #mergeTestResults: false # Optional
-    failTaskOnFailedTests: true # Optional
-    #testRunTitle: # Optional
-    #buildPlatform: # Optional
-    #buildConfiguration: # Optional
+    #testFiltercriteria: # Optional
+    runInParallel: true # Optional
+    #otherConsoleOptions: # Optional
     publishRunAttachments: true # Optional
+    failOnMinTestsNotRun: true # Optional
+    minimumExpectedTests: '1' # Optional
+    #diagnosticsEnabled: false # Optional
+    collectDumpOn: 'always' # Optional. Options: onAbortOnly, always, never
+    #rerunFailedTests: False # Optional
+    #rerunType: 'basedOnTestFailurePercentage' # Optional. Options: basedOnTestFailurePercentage, basedOnTestFailureCount
+    #rerunFailedThreshold: '30' # Optional
+    #rerunFailedTestCasesMaxLimit: '5' # Optional
+    #rerunMaxAttempts: '3' # Optional
