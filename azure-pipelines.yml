@@ -40,7 +40,12 @@ steps:
       !**\bin\**\ref\**
 # Publish Test Results
 - script: |
-    dotnet test **\\tests-unit.dll /ResultsDirectory:$(Agent.TempDirectory)/TestResults /Logger:trx
+    dotnet test 
+    **\\tests-unit.dll
+    !**\*TestAdapter.dll
+    !**\obj\**
+    !**\bin\**\ref\**
+    /ResultsDirectory:$(Agent.TempDirectory)/TestResults /Logger:trx
   displayName: "dotnet test"
 # Publish test results to Azure Pipelines
 - task: PublishTestResults@2
