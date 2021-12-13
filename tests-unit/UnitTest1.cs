@@ -60,7 +60,8 @@ namespace tests_unit
             var allThese = this.Config.Root.GetChildren().GetEnumerator();
             while( allThese.MoveNext())
             {
-               // Logger.Info(allThese.Current.Key);
+                Logger.Info(allThese.Current.Key);
+
             }
 
             var timeSetting = this.Config.Root.GetSection("timeoutSettings").GetChildren().GetEnumerator();
