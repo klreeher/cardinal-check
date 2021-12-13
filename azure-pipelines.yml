@@ -28,26 +28,31 @@ steps:
     msbuildArgs: '/p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    maximumCpuCount: false
 
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    testAssemblyVer2: |
-      **\\tests-unit.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-      !**\bin\**\ref\**
-    #testFiltercriteria: # Optional
-    runInParallel: true # Optional
-    otherConsoleOptions: '--logger:nunit;LogFileName={assembly}.results.xml' # Optional
-    publishRunAttachments: true # Optional
-    failOnMinTestsNotRun: true # Optional
-    minimumExpectedTests: '1' # Optional
-    #diagnosticsEnabled: false # Optional
-    collectDumpOn: 'always' # Optional. Options: onAbortOnly, always, never
-    #rerunFailedTests: False # Optional
-    #rerunType: 'basedOnTestFailurePercentage' # Optional. Options: basedOnTestFailurePercentage, basedOnTestFailureCount
-    #rerunFailedThreshold: '30' # Optional
-    #rerunFailedTestCasesMaxLimit: '5' # Optional
-    #rerunMaxAttempts: '3' # Optional
+# - task: VSTest@2
+#   inputs:
+#     platform: '$(buildPlatform)'
+#     configuration: '$(buildConfiguration)'
+#     testAssemblyVer2: |
+#       **\\tests-unit.dll
+#       !**\*TestAdapter.dll
+#       !**\obj\**
+#       !**\bin\**\ref\**
+#     #testFiltercriteria: # Optional
+#     runInParallel: true # Optional
+#     otherConsoleOptions: '--logger:nunit;LogFileName={assembly}.results.xml' # Optional
+#     publishRunAttachments: true # Optional
+#     failOnMinTestsNotRun: true # Optional
+#     minimumExpectedTests: '1' # Optional
+#     #diagnosticsEnabled: false # Optional
+#     collectDumpOn: 'always' # Optional. Options: onAbortOnly, always, never
+#     #rerunFailedTests: False # Optional
+#     #rerunType: 'basedOnTestFailurePercentage' # Optional. Options: basedOnTestFailurePercentage, basedOnTestFailureCount
+#     #rerunFailedThreshold: '30' # Optional
+#     #rerunFailedTestCasesMaxLimit: '5' # Optional
+#     #rerunMaxAttempts: '3' # Optional
+
+
+- script: |
+    dotnet test --logger:"nunit;LogFilePath=test-result.xml" -- NUnit.ShowInternalProperties=true 
