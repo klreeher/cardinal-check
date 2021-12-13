@@ -55,4 +55,13 @@ steps:
 
 
 - script: |
-    dotnet test --logger:"nunit;LogFilePath=test-result.xml" -- NUnit.ShowInternalProperties=true 
+    dotnet test tests-unit.dll --logger:"nunit;LogFilePath=$(Agent.TempDirectory)\{assembly}-test-result.xml" -- NUnit.ShowInternalProperties=true 
+
+- task: PublishTestResults@2
+  displayName: 'Publish Unit Test Results'
+  condition: succeededOrFailed() # because otherwise we won't know what tests failed
+  inputs: 
+    testResultsFormat: 'NUnit'
+    testResultsFiles: '**\*-test-result.xml'
+    searchFolder: '$(Agent.TempDirectory)'
+    failTaskOnFailedTests: true
