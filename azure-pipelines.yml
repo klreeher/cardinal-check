@@ -21,7 +21,7 @@ variables:
   Patch: '0'
 
 stages:
-- stage: BUILD 
+- stage: BuildDLLs 
   jobs:
     - job: 
       steps:
@@ -31,11 +31,26 @@ stages:
           restoreSolution: '$(solution)'
 
       - script: |
-          dotnet build --configuration $(buildConfiguration) --output "$(Agent.TempDirectory)"
+          dotnet build --configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)"
         displayName: "dotnet build"
 
+      - publish: $(Build.ArtifactStagingDirectory)
+        artifact: framework
+
+- stage: RunTests
+  dependsOn:
+    - BuildDLLs
+  jobs:
+    - job: TEST
+      steps:
+      - checkout: none
+      - download: current
+
       - script: |
-          dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
+          echo $(Pipeline.Workspace)\framework
+
+      - script: |
+          dotnet test $(Pipeline.Workspace)\framework\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
         displayName: "dotnet test"
 
       - task: PublishTestResults@2
@@ -45,6 +60,13 @@ stages:
           testResultsFormat: 'NUnit'
           testResultsFiles: '**/*.results.xml'
           failTaskOnFailedTests: true
+
+- stage: pack
+  dependsOn:
+    - RunTests
+  jobs:
+    - job: pack
+      steps:
       - task: NuGetToolInstaller@1
       - task: NuGetCommand@2
         inputs:
