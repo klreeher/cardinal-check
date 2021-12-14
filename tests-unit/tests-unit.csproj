@@ -27,7 +27,10 @@
   </ItemGroup>
 	
 	<ItemGroup>
-	  <None Update="appSettings.json">
+	  <None Update="appSettings02.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="appSettings01.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
