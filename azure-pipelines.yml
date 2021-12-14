@@ -17,25 +17,49 @@ variables:
   TestRunner: "nunit"
   TestResultFile: "{assembly}.results.xml"
 
+stages:
+- stage: BUILD 
+  jobs:
+    - job: 
+      steps:
+      - task: NuGetToolInstaller@1
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: '$(solution)'
 
-steps:
-- task: NuGetToolInstaller@1
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+      - script: |
+          dotnet build --configuration $(buildConfiguration) --output "$(Agent.TempDirectory)"
+        displayName: "dotnet build"
 
-- script: |
-    dotnet build --configuration $(buildConfiguration) --output "$(Agent.TempDirectory)"
-  displayName: "dotnet build"
+      - script: |
+          dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
+        displayName: "dotnet test"
 
-- script: |
-    dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
-  displayName: "dotnet test"
-
-- task: PublishTestResults@2
-  displayName: 'Publish Unit Test Results'
-  condition: succeededOrFailed() # because otherwise we won't know what tests failed
-  inputs: 
-    testResultsFormat: 'NUnit'
-    testResultsFiles: '**/*.results.xml'
-    failTaskOnFailedTests: true
+      - task: PublishTestResults@2
+        displayName: 'Publish Unit Test Results'
+        condition: succeededOrFailed() # because otherwise we won't know what tests failed
+        inputs: 
+          testResultsFormat: 'NUnit'
+          testResultsFiles: '**/*.results.xml'
+          failTaskOnFailedTests: true
+- stage: PACK 
+  variables: 
+    Major: '1'
+    Minor: '0'
+    Patch: '0'
+  
+  jobs:
+    - job: 
+      steps:
+      - task: NuGetToolInstaller@1
+      - task: NuGetCommand@2
+        inputs:
+          command: pack
+          packagesToPack: '**/framework-core.csproj'
+          packDestination: '$(Build.ArtifactStagingDirectory)'
+          versioningScheme: byPrereleaseNumber
+          majorVersion: '$(Major)'
+          minorVersion: '$(Minor)'
+          patchVersion: '$(Patch)'
+      - publish: $(Build.ArtifactStagingDirectory)'
+        artifact: package
