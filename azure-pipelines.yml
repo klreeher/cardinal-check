@@ -16,6 +16,9 @@ variables:
   GLOBAL_ISCI: true
   TestRunner: "nunit"
   TestResultFile: "{assembly}.results.xml"
+  Major: '1'
+  Minor: '0'
+  Patch: '0'
 
 stages:
 - stage: BUILD 
@@ -32,9 +35,6 @@ stages:
         displayName: "dotnet build"
 
       - script: |
-          Echo %CD%
-          ls -r  
-      - script: |
           dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
         displayName: "dotnet test"
 
@@ -45,13 +45,6 @@ stages:
           testResultsFormat: 'NUnit'
           testResultsFiles: '**/*.results.xml'
           failTaskOnFailedTests: true
-- stage: PACK 
-  variables: 
-    Major: '1'
-    Minor: '0'
-    Patch: '0'
-  
-  jobs:
     - job: 
       steps:
       - task: NuGetToolInstaller@1
