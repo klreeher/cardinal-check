@@ -33,7 +33,7 @@ namespace tests_unit
             var timeoutSettings = this.Config.Root.GetSection("timeoutSettings").GetChildren();
 
             Assert.IsEmpty(timeoutSettings);
-            Assert.Fail("to test logging");
+
             }
 
         }
