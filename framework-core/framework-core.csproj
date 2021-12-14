@@ -6,7 +6,9 @@
 	<PackageId>cardinal-framework</PackageId>
 	<Version>1.0.0</Version>
 	<Authors>K.L.Reeher</Authors>
-	<Company></Company>  
+	<Company></Company>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	<Description>dotnet basic test framework</Description>  
   </PropertyGroup>
 	
 	<ItemGroup>
