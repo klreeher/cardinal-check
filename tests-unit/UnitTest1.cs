@@ -16,6 +16,7 @@ namespace tests_unit
         public void InitConfig()
         {
                 string file = @".\appSettings.json";
+            Logger.Info(System.IO.Directory.GetCurrentDirectory());
                 Logger.Info("Full Path of Config File:" + Path.GetFullPath(file));
                 this.Config = new ConfigurationService();
                 this.Config.addJsonConfig(Path.GetFullPath(file));
