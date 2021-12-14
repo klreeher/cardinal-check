@@ -25,19 +25,12 @@
   <ItemGroup>
     <ProjectReference Include="..\framework-core\framework-core.csproj" />
   </ItemGroup>
-
-	<ItemGroup>
-		<TestConfigFiles Include="appSettings.json" />
-	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <None Update="appSettings.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
-	<Target Name="CopyFiles" AfterTargets="Build">
-		<Copy SourceFiles="@(TestConfigFiles)" DestinationFolder="$(OutDir)\$(MSBuildProjectName)\" />
-	</Target>
 
 
 </Project>
