@@ -32,6 +32,9 @@ stages:
         displayName: "dotnet build"
 
       - script: |
+          echo pwd
+          ls -r  
+      - script: |
           dotnet test $(Agent.TempDirectory)\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
         displayName: "dotnet test"
 
