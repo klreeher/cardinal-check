@@ -45,8 +45,6 @@ stages:
           testResultsFormat: 'NUnit'
           testResultsFiles: '**/*.results.xml'
           failTaskOnFailedTests: true
-    - job: 
-      steps:
       - task: NuGetToolInstaller@1
       - task: NuGetCommand@2
         inputs:
