@@ -19,4 +19,10 @@
     <ProjectReference Include="..\framework-core\framework-core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CatsApiDONTCHECKIN.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

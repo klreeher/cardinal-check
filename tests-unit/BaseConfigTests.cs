@@ -44,8 +44,6 @@ namespace UnitTests
             var osSetting = this.Config.Root.GetSection("OS").Value;
             Logger.Info($"OS System Var is: {osSetting}");
             Assert.IsNotEmpty(osSetting);
-
-
         }
     }
 }

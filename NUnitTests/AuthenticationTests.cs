@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RestSharp;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ApiTests
@@ -16,13 +17,21 @@ namespace ApiTests
     {
 
         string _baseUrl = "https://api.thecatapi.com";
-        string _authToken = "d9bafde3-d55f-4f5e-91b9-905f7859de8b";
+        string _authToken;
         private RestClient client;
 
         [SetUp]
         public void Setup()
         {
+            string file = @".\CatsApiDONTCHECKIN.json";
+            Logger.Info(System.IO.Directory.GetCurrentDirectory());
+            Logger.Info("Full Path of Config File:" + Path.GetFullPath(file));
+            this.Config.addJsonConfig(Path.GetFullPath(file));
+
+            this.Config.buildConfigSources();
             this.client = new RestClient(this._baseUrl);
+
+            this._authToken = this.Config.Root.GetSection("apiSettings").GetSection("authToken").Value;
             //this.client.UseNewtonsoftJson();
         }
 
@@ -38,6 +47,7 @@ namespace ApiTests
         {
             RestRequest imageRequest = new("v1/images/search", Method.Get);
             imageRequest.AddQueryParameter("api_key", this._authToken);
+            Logger.Info($"Auth Token: {this._authToken}");
             var response = await client.ExecuteAsync(imageRequest);
             Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.OK));
             Assert.That(response.IsSuccessful, Is.True);
@@ -57,11 +67,17 @@ namespace ApiTests
         public async Task CanAuthWithRequestHeaderAsync()
         {
             RestRequest imageRequest = new("v1/images/search", Method.Get);
-            imageRequest.AddHeader("x-api-key", _authToken);
+            imageRequest.AddHeader("x-api-key", this._authToken);
+            Logger.Info($"Auth Token: {this._authToken}");
             var response = await client.ExecuteAsync(imageRequest);
-            Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.OK));
-            Assert.That(response.IsSuccessful, Is.True);
             Logger.Info($"Response Status Code: {response.StatusCode}");
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.OK));
+                Assert.That(response.IsSuccessful, Is.True);
+            });
+
             //var cont = JsonConvert
             var content = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(response.Content);
             Logger.Info($"Url: {content[0]["url"]}");
