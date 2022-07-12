@@ -4,78 +4,29 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
-- "*"
+  - "*"
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: "windows-latest"
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Debug'
-  GLOBAL_ISCI: true
-  TestRunner: "nunit"
-  TestResultFile: "{assembly}.results.xml"
-  Major: '1'
-  Minor: '0'
-  Patch: '0'
+  solution: "**/*.sln"
+  buildPlatform: "Any CPU"
+  buildConfiguration: "Debug"
 
 stages:
-- stage: BuildDLLs 
-  jobs:
-    - job: 
-      steps:
-      - task: NuGetToolInstaller@1
-      - task: NuGetCommand@2
-        inputs:
-          restoreSolution: '$(solution)'
+  - stage: BuildDLLs
+    jobs:
+      - job:
+        steps:
+          - task: NuGetToolInstaller@1
+          - task: NuGetCommand@2
+            inputs:
+              restoreSolution: "$(solution)"
 
-      - script: |
-          dotnet build --configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)"
-        displayName: "dotnet build"
+          - script: |
+              dotnet build --configuration $(buildConfiguration) --output "$(Build.ArtifactStagingDirectory)"
+            displayName: "dotnet build"
 
-      - publish: $(Build.ArtifactStagingDirectory)
-        artifact: framework
-
-- stage: RunTests
-  dependsOn:
-    - BuildDLLs
-  jobs:
-    - job: TEST
-      steps:
-      - checkout: none
-      - download: current
-
-      - script: |
-          echo $(Pipeline.Workspace)\framework
-
-      - script: |
-          dotnet test $(Pipeline.Workspace)\framework\tests-unit.dll --logger:"$(TestRunner);LogFileName=$(TestResultFile)"; -- NUnit.ShowInternalProperties=true 
-        displayName: "dotnet test"
-
-      - task: PublishTestResults@2
-        displayName: 'Publish Unit Test Results'
-        condition: succeededOrFailed() # because otherwise we won't know what tests failed
-        inputs: 
-          testResultsFormat: 'NUnit'
-          testResultsFiles: '**/*.results.xml'
-          failTaskOnFailedTests: true
-
-- stage: pack
-  dependsOn:
-    - RunTests
-  jobs:
-    - job: pack
-      steps:
-      - task: NuGetToolInstaller@1
-      - task: NuGetCommand@2
-        inputs:
-          command: pack
-          packagesToPack: '**/framework-core.csproj'
-          packDestination: '$(Build.ArtifactStagingDirectory)'
-          versioningScheme: byPrereleaseNumber
-          majorVersion: '$(Major)'
-          minorVersion: '$(Minor)'
-          patchVersion: '$(Patch)'
-      - publish: $(Build.ArtifactStagingDirectory)'
-        artifact: package
+          - publish: $(Build.ArtifactStagingDirectory)
+            artifact: framework
