@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		Directory.build.props = Directory.build.props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTests", "NUnitTests\ApiTests.csproj", "{7D0D6831-E06F-43CB-8221-EB128BB78F6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,18 @@ Global
 		{404813CA-5B31-4FDE-B3B3-4E03789FCE4D}.Release|x64.Build.0 = Release|Any CPU
 		{404813CA-5B31-4FDE-B3B3-4E03789FCE4D}.Release|x86.ActiveCfg = Release|Any CPU
 		{404813CA-5B31-4FDE-B3B3-4E03789FCE4D}.Release|x86.Build.0 = Release|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Release|x64.ActiveCfg = Release|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Release|x64.Build.0 = Release|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D0D6831-E06F-43CB-8221-EB128BB78F6E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
