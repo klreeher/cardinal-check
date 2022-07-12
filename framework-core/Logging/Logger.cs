@@ -15,7 +15,8 @@ namespace framework_core.Logging
         /// <param name="msg">The string message to be written to the log.</param>
         public static void Info(string msg)
         {
-            Info(msg: msg, args: Array.Empty<string>());
+            Console.WriteLine(msg);
+            Debug.WriteLine(msg);
         }
 
         /// <summary>
@@ -24,7 +25,8 @@ namespace framework_core.Logging
         /// <param name="msg">The string message to be written to the log.</param>
         public static void Error(string msg)
         {
-            Error(msg: msg, args: Array.Empty<string>());
+            Console.Error.WriteLine(msg);
+            Debug.WriteLine(msg);
         }
 
         /// <summary>
@@ -34,7 +36,7 @@ namespace framework_core.Logging
         /// <param name="args">An array of strings to be appended to the message.</param>
         public static void Info(string msg, params string[] args)
         {
-            TestContext.WriteLine(msg, args);
+            Console.WriteLine(msg, args);
             Debug.WriteLine(msg, args);
         }
 
@@ -45,7 +47,7 @@ namespace framework_core.Logging
         /// <param name="args">An array of strings to be appended to the message.</param>
         public static void Error(string msg, params string[] args)
         {
-            TestContext.WriteLine(msg, args);
+            Console.Error.WriteLine(msg, args);
             Debug.WriteLine(msg, args);
         }
     }

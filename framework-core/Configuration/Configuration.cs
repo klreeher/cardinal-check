@@ -26,7 +26,7 @@ namespace framework_core
 
 
         /// <summary>
-        /// 
+        /// adds environment variables by default
         /// </summary>
         public ConfigurationService()
             {

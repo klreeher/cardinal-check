@@ -35,12 +35,15 @@ namespace UnitTests
             while (allThese.MoveNext())
             {
                 Assert.IsNotEmpty(allThese.Current.Key);
-                //Logger.Info(allThese.Current.Key);
+               // Logger.Info(allThese.Current.Key);
             }
 
             var timeoutSettings = this.Config.Root.GetSection("timeoutSettings").GetChildren();
-
             Assert.IsEmpty(timeoutSettings);
+
+            var osSetting = this.Config.Root.GetSection("OS").Value;
+            Logger.Info($"OS System Var is: {osSetting}");
+            Assert.IsNotEmpty(osSetting);
         }
     }
 }
