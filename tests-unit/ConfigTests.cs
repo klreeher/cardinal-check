@@ -6,12 +6,16 @@ using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Configuration.CommandLine;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
-namespace tests_unit
+namespace UnitTests
 {
-    /// <inheritdoc></inheritdoc>
-    public class UnitTests : BaseTestClass
+    /// <summary>
+    /// Tests for the Config **with** additional sources added..
+    /// </summary>
+    public class ConfigTests : BaseTestClass
     {
-
+        /// <summary>
+        /// Initializes configuration with a json setting file.
+        /// </summary>
         [SetUp]
         public void InitConfig()
         {
@@ -21,6 +25,9 @@ namespace tests_unit
                 this.Config = new ConfigurationService();
                 this.Config.addJsonConfig(Path.GetFullPath(file));
         }
+        /// <summary>
+        /// Make sure the Config actually gets the new souce.
+        /// </summary>
         [Test]
         public void ListSources()
             {
@@ -53,7 +60,9 @@ namespace tests_unit
                 i++;
             }
         }
-
+        /// <summary>
+        /// Check different settings values from the config.
+        /// </summary>
         [Test]
         public void WhatIsIt()
         {

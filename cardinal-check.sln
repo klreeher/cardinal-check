@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "framework-core", "framework-core\framework-core.csproj", "{D37D3669-6E70-47C1-8299-F6D6C8B65C4B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tests-unit", "tests-unit\tests-unit.csproj", "{404813CA-5B31-4FDE-B3B3-4E03789FCE4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests-unit\UnitTests.csproj", "{404813CA-5B31-4FDE-B3B3-4E03789FCE4D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{B8B63617-D015-4D19-99EF-2A957ED51543}"
 	ProjectSection(SolutionItems) = preProject
